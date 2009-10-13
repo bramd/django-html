@@ -131,6 +131,15 @@ class FieldTest(TemplateTestHelper):
             {'form': MyForm()},
             {'name': 'select', 'class': 'foo', 'id': 'hi'}
         )
+    
+    def test_field_html5_aria_required(self):
+        "The aria-required attribute should be added and set to true for required fields if there is an HTML 5 doctype"
+        self.assertHasAttrs(
+            '{% load html %}{% doctype "html5" silent %}'+
+            '{% field form.happy %}',
+            {'form': MyForm()},
+            {'aria-required': 'true'}
+        )
 
 class SlashTest(TemplateTestHelper):
     def test_xhtml1(self):
