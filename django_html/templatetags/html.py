@@ -74,7 +74,7 @@ class FieldNode(template.Node):
     
     def render(self, context):
         field = template.resolve_variable(self.field_var, context)
-        # Caling bound_field.as_widget() returns the HTML, but we need to 
+        # Calling bound_field.as_widget() returns the HTML, but we need to 
         # intercept this to manipulate the attributes - so we have to 
         # duplicate the logic from as_widget here.
         widget = field.field.widget
