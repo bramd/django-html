@@ -88,9 +88,12 @@ class FieldNode(template.Node):
                 data = data()
         else:
             data = field.data
+        # Add aria-required if field is required and we're in html 5 mode
+        doctype = getattr(context, '_doctype', 'xhtml1')
+        if doctype == 'html5' and field.field.required == True:
+            attrs.update({'aria-required': 'true'})
         html = widget.render(field.html_name, data, attrs=attrs)
         # Finally, if we're NOT in xhtml mode ensure no '/>'
-        doctype = getattr(context, '_doctype', 'xhtml1')
         if doctype in html_doctypes:
             html = xhtml_end_re.sub('>', html)
         return html
